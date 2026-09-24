@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>مكتبتي | المكتبة الإلكترونية</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#f4f6fb;
+    --card:#ffffff;
+    --text:#182033;
+    --muted:#6b7280;
+    --primary:#4f46e5;
+    --secondary:#7c3aed;
+    --border:#e5e7eb;
+    --success:#16a34a;
+    --danger:#dc2626;
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+body.dark{
+    --bg:#0d1420;
+    --card:#151e2d;
+    --text:#f5f7fb;
+    --muted:#aab4c3;
+    --border:#2b3648;
+    --shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+body{
+    font-family:Tahoma,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    transition:.3s;
+}
+
+/* NAVBAR */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    box-shadow:0 2px 15px rgba(0,0,0,.04);
+}
+
+.navbar{
+    max-width:1400px;
+    margin:auto;
+    min-height:75px;
+    padding:10px 20px;
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.logo{
+    color:var(--primary);
+    font-size:24px;
+    font-weight:900;
+    white-space:nowrap;
+    cursor:pointer;
+}
+
+.nav-links{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    gap:5px;
+    flex-wrap:wrap;
+}
+
+.nav-links button{
+    border:0;
+    background:transparent;
+    color:var(--muted);
+    padding:10px 13px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links button:hover,
+.nav-links button.active{
+    background:#eef2ff;
+    color:var(--primary);
+}
+
+.dark .nav-links button:hover,
+.dark .nav-links button.active{
+    background:#252e49;
+}
+
+.theme-btn{
+    width:44px;
+    height:44px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--card);
+    color:var(--text);
+    cursor:pointer;
+    font-size:20px;
+}
+
+/* PAGES */
+
+.page{
+    display:none;
+    min-height:calc(100vh - 75px);
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    max-width:1400px;
+    margin:auto;
+    padding:35px 20px;
+}
+
+/* HERO */
+
+.hero{
+    min-height:420px;
+    border-radius:30px;
+    padding:60px 50px;
+    background:
+    linear-gradient(
+        135deg,
+        #312e81,
+        #4f46e5,
+        #7c3aed
+    );
+    color:white;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+}
+
+.hero::after{
+    content:"📚";
+    position:absolute;
+    left:40px;
+    bottom:-70px;
+    font-size:280px;
+    opacity:.1;
+}
+
+.hero-content{
+    max-width:800px;
+    position:relative;
+    z-index:2;
+}
+
+.hero h1{
+    font-size:48px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:19px;
+    line-height:2;
+    color:#eee;
+}
+
+.search-box{
+    margin-top:30px;
+    display:flex;
+    gap:10px;
+}
+
+.search-box input{
+    flex:1;
+    border:0;
+    padding:17px;
+    border-radius:14px;
+    outline:none;
+    font-size:16px;
+}
+
+.btn{
+    border:0;
+    background:var(--primary);
+    color:white;
+    padding:13px 20px;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    opacity:.9;
+}
+
+.hero .btn{
+    background:white;
+    color:var(--primary);
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin:25px 0;
+}
+
+.stat{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:25px;
+    box-shadow:var(--shadow);
+}
+
+.stat-icon{
+    font-size:30px;
+}
+
+.stat-number{
+    display:block;
+    color:var(--primary);
+    font-size:30px;
+    font-weight:900;
+    margin:8px 0;
+}
+
+/* TITLES */
+
+.section-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:35px 0 20px;
+}
+
+.section-title h2,
+.section-title h1{
+    font-size:28px;
+}
+
+/* BOOKS */
+
+.books-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:18px;
+}
+
+.book-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    transition:.25s;
+}
+
+.book-card:hover{
+    transform:translateY(-7px);
+}
+
+.book-cover{
+    height:270px;
+    background:#e5e7eb;
+    overflow:hidden;
+}
+
+.book-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.book-info{
+    padding:15px;
+}
+
+.book-info h3{
+    font-size:16px;
+    line-height:1.5;
+    min-height:48px;
+}
+
+.author{
+    color:var(--muted);
+    font-size:13px;
+    min-height:40px;
+    margin-top:5px;
+}
+
+.category{
+    display:inline-block;
+    color:var(--primary);
+    background:#eef2ff;
+    padding:6px 9px;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:bold;
+    margin-top:7px;
+}
+
+.borrow-btn{
+    width:100%;
+    margin-top:12px;
+}
+
+/* FILTER */
+
+.filter-box{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:25px;
+}
+
+.filters{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.filters button{
+    padding:10px 16px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    cursor:pointer;
+}
+
+.filters button.active{
+    background:var(--primary);
+    color:white;
+}
+
+/* CATEGORY CARDS */
+
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:20px;
+}
+
+.category-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    cursor:pointer;
+    box-shadow:var(--shadow);
+    transition:.25s;
+}
+
+.category-card:hover{
+    transform:translateY(-7px);
+}
+
+.category-card .icon{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.category-card h3{
+    margin-bottom:8px;
+}
+
+/* BORROWED */
+
+.borrowed-list{
+    display:grid;
+    gap:15px;
+}
+
+.borrowed-item{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr 120px;
+    gap:15px;
+    align-items:center;
+}
+
+.borrowed-item small{
+    display:block;
+    color:var(--muted);
+    margin-top:5px;
+}
+
+/* STAFF */
+
+.staff-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.staff-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+    box-shadow:var(--shadow);
+}
+
+.staff-avatar{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:#eef2ff;
+    display:grid;
+    place-items:center;
+    font-size:30px;
+    margin-bottom:15px;
+}
+
+.staff-card p{
+    color:var(--muted);
+    margin:8px 0;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    z-index:1000;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(550px,100%);
+    background:var(--card);
+    border-radius:22px;
+    padding:30px;
+    position:relative;
+    animation:showModal .2s;
+}
+
+@keyframes showModal{
+    from{
+        transform:scale(.9);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.close{
+    position:absolute;
+    left:18px;
+    top:12px;
+    background:none;
+    border:0;
+    font-size:30px;
+    color:var(--muted);
+    cursor:pointer;
+}
+
+.modal-box h2{
+    margin-bottom:10px;
+}
+
+.form{
+    display:grid;
+    gap:13px;
+    margin-top:20px;
+}
+
+.form input,
+.form select{
+    padding:15px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    background:var(--bg);
+    color:var(--text);
+    outline:none;
+    font-size:15px;
+}
+
+/* EMPTY */
+
+.empty{
+    text-align:center;
+    padding:70px;
+    color:var(--muted);
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+}
+
+/* FOOTER */
+
+footer{
+    background:#111827;
+    color:#d1d5db;
+    text-align:center;
+    padding:30px;
+    margin-top:50px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1200px){
+
+    .books-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .category-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media(max-width:850px){
+
+    .navbar{
+        flex-wrap:wrap;
+    }
+
+    .nav-links{
+        order:3;
+        width:100%;
+    }
+
+    .books-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .staff-grid{
+        grid-template-columns:1fr;
+    }
+
+    .borrowed-item{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        padding:40px 25px;
+    }
+
+    .hero h1{
+        font-size:34px;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .books-grid,
+    .stats,
+    .category-grid{
+        grid-template-columns:1fr;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header>
+
+<div class="navbar">
+
+<div class="logo"
+onclick="showPage('home')">
+📚 مكتبتي
+</div>
+
+<div class="nav-links">
+
+<button onclick="showPage('home')" id="nav-home">
+الرئيسية
+</button>
+
+<button onclick="showPage('all')" id="nav-all">
+كل الكتب
+</button>
+
+<button onclick="showPage('borrowed')" id="nav-borrowed">
+الكتب المستعارة
+</button>
+
+<button onclick="showPage('staff')" id="nav-staff">
+العمال
+</button>
+
+<button onclick="showPage('programming')">
+💻 برمجة
+</button>
+
+<button onclick="showPage('literature')">
+📖 أدب
+</button>
+
+<button onclick="showPage('science')">
+🔬 علوم
+</button>
+
+<button onclick="showPage('history')">
+🏛️ تاريخ
+</button>
+
+<button onclick="showPage('self')">
+🚀 تطوير الذات
+</button>
+
+</div>
+
+<button
+class="theme-btn"
+id="themeBtn"
+onclick="toggleTheme()">
+🌙
+</button>
+
+</div>
+
+</header>
+
+
+<!-- ================= HOME ================= -->
+
+<section
+class="page active"
+id="home">
+
+<div class="container">
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>
+مرحبًا بك في مكتبتك الإلكترونية 📚
+</h1>
+
+<p>
+اكتشف آلاف الأفكار والقصص والمعارف.
+ابحث عن كتابك المفضل واستعره بسهولة
+من خلال مكتبة إلكترونية عصرية وسريعة.
+</p>
+
+<div class="search-box">
+
+<input
+type="text"
+placeholder="ابحث عن كتاب أو مؤلف..."
+oninput="homeSearch(this.value)"
+>
+
+<button
+class="btn"
+onclick="showPage('all')">
+تصفح الكتب
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+
+<div class="stat-icon">
+📚
+</div>
+
+<span
+class="stat-number"
+id="totalBooks">
+30
+</span>
+
+إجمالي الكتب
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+📖
+</div>
+
+<span
+class="stat-number"
+id="borrowedCount">
+0
+</span>
+
+كتب مستعارة
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+📂
+</div>
+
+<span class="stat-number">
+5
+</span>
+
+أقسام
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">
+⏰
+</div>
+
+<span class="stat-number">
+24/7
+</span>
+
+متاحة دائمًا
+
+</div>
+
+</div>
+
+
+<div class="section-title">
+
+<h2>
+الكتب المميزة
+</h2>
+
+<button
+class="btn"
+onclick="showPage('all')">
+عرض الكل
+</button>
+
+</div>
+
+<div
+class="books-grid"
+id="homeBooks">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ALL BOOKS ================= -->
+
+<section
+class="page"
+id="all">
+
+<div class="container">
+
+<div class="section-title">
+
+<div>
+
+<h1>
+📚 كل الكتب
+</h1>
+
+<p>
+جميع الكتب الموجودة في المكتبة
+</p>
+
+</div>
+
+</div>
+
+
+<div class="filter-box">
+
+<div class="filters">
+
+<button
+class="active"
+onclick="filterBooks('الكل',this)">
+الكل
+</button>
+
+<button
+onclick="filterBooks('برمجة',this)">
+💻 برمجة
+</button>
+
+<button
+onclick="filterBooks('أدب',this)">
+📖 أدب
+</button>
+
+<button
+onclick="filterBooks('علوم',this)">
+🔬 علوم
+</button>
+
+<button
+onclick="filterBooks('تاريخ',this)">
+🏛️ تاريخ
+</button>
+
+<button
+onclick="filterBooks('تطوير الذات',this)">
+🚀 تطوير الذات
+</button>
+
+</div>
+
+
+<div class="search-box">
+
+<input
+id="allSearch"
+placeholder="ابحث عن كتاب..."
+oninput="searchAll(this.value)"
+>
+
+</div>
+
+</div>
+
+
+<div
+class="books-grid"
+id="allBooks">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= BORROWED ================= -->
+
+<section
+class="page"
+id="borrowed">
+
+<div class="container">
+
+<div class="section-title">
+
+<div>
+
+<h1>
+📖 الكتب المستعارة
+</h1>
+
+<p>
+إدارة الكتب التي تم استعارتها
+</p>
+
+</div>
+
+</div>
+
+<div
+class="borrowed-list"
+id="borrowedList">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= STAFF ================= -->
+
+<section
+class="page"
+id="staff">
+
+<div class="container">
+
+<div class="section-title">
+
+<div>
+
+<h1>
+👨‍💼 العمال
+</h1>
+
+<p>
+فريق العمل المسؤول عن المكتبة
+</p>
+
+</div>
+
+</div>
+
+
+<div class="staff-grid">
+
+<div class="staff-card">
+
+<div class="staff-avatar">
+👨‍💼
+</div>
+
+<h3>
+أحمد محمد
+</h3>
+
+<p>
+مدير المكتبة
+</p>
+
+<span class="category">
+الإدارة
+</span>
+
+</div>
+
+
+<div class="staff-card">
+
+<div class="staff-avatar">
+👩‍💻
+</div>
+
+<h3>
+سارة علي
+</h3>
+
+<p>
+مسؤولة النظام
+</p>
+
+<span class="category">
+تقنية المعلومات
+</span>
+
+</div>
+
+
+<div class="staff-card">
+
+<div class="staff-avatar">
+👨‍🏫
+</div>
+
+<h3>
+محمود حسن
+</h3>
+
+<p>
+أمين المكتبة
+</p>
+
+<span class="category">
+خدمة القراء
+</span>
+
+</div>
+
+
+<div class="staff-card">
+
+<div class="staff-avatar">
+👩‍🏫
+</div>
+
+<h3>
+نور أحمد
+</h3>
+
+<p>
+مسؤولة الفهرسة
+</p>
+
+<span class="category">
+الفهرسة
+</span>
+
+</div>
+
+
+<div class="staff-card">
+
+<div class="staff-avatar">
+👨‍🔧
+</div>
+
+<h3>
+يوسف خالد
+</h3>
+
+<p>
+مسؤول التشغيل والدعم
+</p>
+
+<span class="category">
+التشغيل
+</span>
+
+</div>
+
+
+<div class="staff-card">
+
+<div class="staff-avatar">
+👩‍💼
+</div>
+
+<h3>
+ملك إبراهيم
+</h3>
+
+<p>
+خدمة العملاء
+</p>
+
+<span class="category">
+الاستقبال
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CATEGORY PAGES ================= -->
+
+<section
+class="page"
+id="programming">
+
+<div class="container">
+
+<div class="section-title">
+
+<h1>💻 قسم البرمجة</h1>
+
+</div>
+
+<div
+class="books-grid"
+id="programmingBooks">
+</div>
+
+</div>
+
+</section>
+
+
+<section
+class="page"
+id="literature">
+
+<div class="container">
+
+<div class="section-title">
+
+<h1>📖 قسم الأدب</h1>
+
+</div>
+
+<div
+class="books-grid"
+id="literatureBooks">
+</div>
+
+</div>
+
+</section>
+
+
+<section
+class="page"
+id="science">
+
+<div class="container">
+
+<div class="section-title">
+
+<h1>🔬 قسم العلوم</h1>
+
+</div>
+
+<div
+class="books-grid"
+id="scienceBooks">
+</div>
+
+</div>
+
+</section>
+
+
+<section
+class="page"
+id="history">
+
+<div class="container">
+
+<div class="section-title">
+
+<h1>🏛️ قسم التاريخ</h1>
+
+</div>
+
+<div
+class="books-grid"
+id="historyBooks">
+</div>
+
+</div>
+
+</section>
+
+
+<section
+class="page"
+id="self">
+
+<div class="container">
+
+<div class="section-title">
+
+<h1>🚀 قسم تطوير الذات</h1>
+
+</div>
+
+<div
+class="books-grid"
+id="selfBooks">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= BORROW MODAL ================= -->
+
+<div
+class="modal"
+id="borrowModal">
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeModal()">
+×
+</button>
+
+<h2>
+استعارة الكتاب 📚
+</h2>
+
+<p>
+الكتاب:
+<strong id="selectedBook"></strong>
+</p>
+
+<form
+class="form"
+onsubmit="borrowBook(event)">
+
+<input
+type="hidden"
+id="selectedBookData"
+>
+
+<input
+type="text"
+id="borrowerName"
+placeholder="الاسم بالكامل"
+required
+>
+
+<input
+type="tel"
+id="borrowerPhone"
+placeholder="رقم الهاتف"
+required
+>
+
+<input
+type="text"
+id="borrowerCity"
+placeholder="المدينة"
+required
+>
+
+<select id="borrowDuration">
+
+<option value="7">
+مدة الاستعارة: 7 أيام
+</option>
+
+<option value="14">
+مدة الاستعارة: 14 يوم
+</option>
+
+<option value="30">
+مدة الاستعارة: 30 يوم
+</option>
+
+</select>
+
+<button
+class="btn"
+type="submit">
+تأكيد الاستعارة
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+
+<footer>
+
+📚 مكتبتي الإلكترونية
+
+<br><br>
+
+جميع الحقوق محفوظة © 2026
+
+</footer>
+
+
+<script>
+
+/* ================= BOOK DATABASE ================= */
+
+const books = [
+
+/* PROGRAMMING */
+
+{
+title:"Clean Code",
+author:"Robert C. Martin",
+category:"برمجة",
+isbn:"9780132350884"
+},
+
+{
+title:"The Pragmatic Programmer",
+author:"Andrew Hunt & David Thomas",
+category:"برمجة",
+isbn:"9780135957059"
+},
+
+{
+title:"JavaScript: The Good Parts",
+author:"Douglas Crockford",
+category:"برمجة",
+isbn:"9780596517748"
+},
+
+{
+title:"Eloquent JavaScript",
+author:"Marijn Haverbeke",
+category:"برمجة",
+isbn:"9781593279509"
+},
+
+{
+title:"Python Crash Course",
+author:"Eric Matthes",
+category:"برمجة",
+isbn:"9781593279288"
+},
+
+{
+title:"Head First Java",
+author:"Kathy Sierra",
+category:"برمجة",
+isbn:"9780596009205"
+},
+
+
+/* LITERATURE */
+
+{
+title:"The Great Gatsby",
+author:"F. Scott Fitzgerald",
+category:"أدب",
+isbn:"9780743273565"
+},
+
+{
+title:"1984",
+author:"George Orwell",
+category:"أدب",
+isbn:"9780451524935"
+},
+
+{
+title:"Pride and Prejudice",
+author:"Jane Austen",
+category:"أدب",
+isbn:"9780141439518"
+},
+
+{
+title:"The Hobbit",
+author:"J. R. R. Tolkien",
+category:"أدب",
+isbn:"9780547928227"
+},
+
+{
+title:"Jane Eyre",
+author:"Charlotte Brontë",
+category:"أدب",
+isbn:"9780141441146"
+},
+
+{
+title:"Little Women",
+author:"Louisa May Alcott",
+category:"أدب",
+isbn:"9780147514011"
+},
+
+
+/* SCIENCE */
+
+{
+title:"A Brief History of Time",
+author:"Stephen Hawking",
+category:"علوم",
+isbn:"9780553380163"
+},
+
+{
+title:"Cosmos",
+author:"Carl Sagan",
+category:"علوم",
+isbn:"9780345539434"
+},
+
+{
+title:"The Selfish Gene",
+author:"Richard Dawkins",
+category:"علوم",
+isbn:"9780198788607"
+},
+
+{
+title:"Astrophysics for People in a Hurry",
+author:"Neil deGrasse Tyson",
+category:"علوم",
+isbn:"9780393609394"
+},
+
+{
+title:"The Origin of Species",
+author:"Charles Darwin",
+category:"علوم",
+isbn:"9780451529060"
+},
+
+{
+title:"Silent Spring",
+author:"Rachel Carson",
+category:"علوم",
+isbn:"9780618249060"
+},
+
+
+/* HISTORY */
+
+{
+title:"Sapiens",
+author:"Yuval Noah Harari",
+category:"تاريخ",
+isbn:"9780062316097"
+},
+
+{
+title:"Guns, Germs, and Steel",
+author:"Jared Diamond",
+category:"تاريخ",
+isbn:"9780393317558"
+},
+
+{
+title:"The Silk Roads",
+author:"Peter Frankopan",
+category:"تاريخ",
+isbn:"9781101912379"
+},
+
+{
+title:"SPQR",
+author:"Mary Beard",
+category:"تاريخ",
+isbn:"9780871404657"
+},
+
+{
+title:"A People's History of the United States",
+author:"Howard Zinn",
+category:"تاريخ",
+isbn:"9780062397348"
+},
+
+{
+title:"The Diary of a Young Girl",
+author:"Anne Frank",
+category:"تاريخ",
+isbn:"9780553296983"
+},
+
+
+/* SELF DEVELOPMENT */
+
+{
+title:"Atomic Habits",
+author:"James Clear",
+category:"تطوير الذات",
+isbn:"9780735211292"
+},
+
+{
+title:"The 7 Habits of Highly Effective People",
+author:"Stephen R. Covey",
+category:"تطوير الذات",
+isbn:"9781982137274"
+},
+
+{
+title:"How to Win Friends and Influence People",
+author:"Dale Carnegie",
+category:"تطوير الذات",
+isbn:"9780671027032"
+},
+
+{
+title:"Think and Grow Rich",
+author:"Napoleon Hill",
+category:"تطوير الذات",
+isbn:"9781585424337"
+},
+
+{
+title:"The Power of Now",
+author:"Eckhart Tolle",
+category:"تطوير الذات",
+isbn:"9781577314806"
+},
+
+{
+title:"Deep Work",
+author:"Cal Newport",
+category:"تطوير الذات",
+isbn:"9781455586691"
+}
+
+];
+
+
+/* ================= IMAGE ================= */
+
+function getCover(book){
+
+return `
+https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg
+`;
+
+}
+
+
+/* ================= BOOK CARD ================= */
+
+function createCard(book){
+
+return `
+
+<div class="book-card">
+
+<div class="book-cover">
+
+<img
+src="${getCover(book)}"
+alt="${book.title}"
+loading="lazy"
+onerror="
+this.src='https://placehold.co/400x550?text=Book'
+"
+>
+
+</div>
+
+<div class="book-info">
+
+<h3>
+${book.title}
+</h3>
+
+<div class="author">
+${book.author}
+</div>
+
+<span class="category">
+${book.category}
+</span>
+
+<button
+class="btn borrow-btn"
+onclick='openBorrow(${JSON.stringify(book)})'>
+استعارة الكتاب
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* ================= RENDER ================= */
+
+function renderBooks(list,id){
+
+const container =
+document.getElementById(id);
+
+if(!container) return;
+
+if(list.length===0){
+
+container.innerHTML=`
+<div class="empty">
+😔 لم يتم العثور على كتب
+</div>
+`;
+
+return;
+
+}
+
+container.innerHTML =
+list.map(createCard).join("");
+
+}
+
+
+/* ================= PAGES ================= */
+
+function showPage(page){
+
+document
+.querySelectorAll(".page")
+.forEach(p=>{
+p.classList.remove("active");
+});
+
+const selected =
+document.getElementById(page);
+
+if(selected){
+selected.classList.add("active");
+}
+
+document
+.querySelectorAll(".nav-links button")
+.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+const nav =
+document.getElementById("nav-"+page);
+
+if(nav){
+nav.classList.add("active");
+}
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* ================= SEARCH ================= */
+
+function homeSearch(value){
+
+const result =
+books.filter(book => {
+
+const text =
+(
+book.title+
+" "+
+book.author+
+" "+
+book.category
+).toLowerCase();
+
+return text.includes(
+value.toLowerCase()
+);
+
+});
+
+renderBooks(result,"homeBooks");
+
+}
+
+
+function searchAll(value){
+
+const result =
+books.filter(book => {
+
+const text =
+(
+book.title+
+" "+
+book.author+
+" "+
+book.category
+).toLowerCase();
+
+return text.includes(
+value.toLowerCase()
+);
+
+});
+
+renderBooks(result,"allBooks");
+
+}
+
+
+/* ================= FILTER ================= */
+
+function filterBooks(category,button){
+
+document
+.querySelectorAll(".filters button")
+.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+button.classList.add("active");
+
+if(category==="الكل"){
+
+renderBooks(
+books,
+"allBooks"
+);
+
+}else{
+
+renderBooks(
+books.filter(
+book=>book.category===category
+),
+"allBooks"
+);
+
+}
+
+}
+
+
+/* ================= BORROW ================= */
+
+function openBorrow(book){
+
+document.getElementById(
+"selectedBook"
+).textContent=book.title;
+
+document.getElementById(
+"selectedBookData"
+).value=
+JSON.stringify(book);
+
+document
+.getElementById("borrowModal")
+.classList.add("show");
+
+}
+
+
+function closeModal(){
+
+document
+.getElementById("borrowModal")
+.classList.remove("show");
+
+}
+
+
+function borrowBook(event){
+
+event.preventDefault();
+
+const book =
+JSON.parse(
+document.getElementById(
+"selectedBookData"
+).value
+);
+
+const name =
+document.getElementById(
+"borrowerName"
+).value;
+
+const phone =
+document.getElementById(
+"borrowerPhone"
+).value;
+
+const city =
+document.getElementById(
+"borrowerCity"
+).value;
+
+const duration =
+document.getElementById(
+"borrowDuration"
+).value;
+
+
+const borrowed =
+JSON.parse(
+localStorage.getItem(
+"borrowedBooks"
+)||"[]"
+);
+
+
+borrowed.push({
+
+title:book.title,
+
+author:book.author,
+
+category:book.category,
+
+isbn:book.isbn,
+
+name:name,
+
+phone:phone,
+
+city:city,
+
+duration:duration,
+
+date:new Date()
+.toLocaleDateString("ar-EG")
+
+});
+
+
+localStorage.setItem(
+"borrowedBooks",
+JSON.stringify(borrowed)
+);
+
+
+closeModal();
+
+event.target.reset();
+
+updateBorrowed();
+
+alert(
+"تم تسجيل استعارة الكتاب بنجاح ✅"
+);
+
+showPage("borrowed");
+
+}
+
+
+/* ================= BORROWED ================= */
+
+function updateBorrowed(){
+
+const container =
+document.getElementById(
+"borrowedList"
+);
+
+if(!container) return;
+
+const borrowed =
+JSON.parse(
+localStorage.getItem(
+"borrowedBooks"
+)||"[]"
+);
+
+
+document.getElementById(
+"borrowedCount"
+).textContent =
+borrowed.length;
+
+
+if(borrowed.length===0){
+
+container.innerHTML=`
+
+<div class="empty">
+
+📚
+
+<h2>
+لا توجد كتب مستعارة
+</h2>
+
+<p>
+عند استعارة أي كتاب سيظهر هنا.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+container.innerHTML =
+borrowed.map(
+(book,index)=>`
+
+<div class="borrowed-item">
+
+<div>
+
+<strong>
+📖 ${book.title}
+</strong>
+
+<small>
+${book.author}
+</small>
+
+</div>
+
+<div>
+
+المستعير:
+
+<strong>
+${book.name}
+</strong>
+
+<small>
+📞 ${book.phone}
+</small>
+
+</div>
+
+<div>
+
+📍 ${book.city}
+
+<small>
+مدة الاستعارة: ${book.duration} يوم
+</small>
+
+</div>
+
+<button
+class="btn"
+onclick="returnBook(${index})">
+إرجاع
+</button>
+
+</div>
+
+`
+).join("");
+
+}
+
+
+/* ================= RETURN ================= */
+
+function returnBook(index){
+
+const borrowed =
+JSON.parse(
+localStorage.getItem(
+"borrowedBooks"
+)||"[]"
+);
+
+borrowed.splice(index,1);
+
+localStorage.setItem(
+"borrowedBooks",
+JSON.stringify(borrowed)
+);
+
+updateBorrowed();
+
+}
+
+
+/* ================= THEME ================= */
+
+function toggleTheme(){
+
+document.body.classList.toggle("dark");
+
+const dark =
+document.body.classList.contains("dark");
+
+localStorage.setItem(
+"darkMode",
+dark ? "1" : "0"
+);
+
+document.getElementById(
+"themeBtn"
+).textContent =
+dark ? "☀️" : "🌙";
+
+}
+
+
+/* ================= LOAD ================= */
+
+function loadTheme(){
+
+const dark =
+localStorage.getItem(
+"darkMode"
+)==="1";
+
+if(dark){
+
+document.body.classList.add(
+"dark"
+);
+
+document.getElementById(
+"themeBtn"
+).textContent="☀️";
+
+}
+
+}
+
+
+/* ================= START ================= */
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+loadTheme();
+
+renderBooks(
+books.slice(0,12),
+"homeBooks"
+);
+
+renderBooks(
+books,
+"allBooks"
+);
+
+renderBooks(
+books.filter(
+b=>b.category==="برمجة"
+),
+"programmingBooks"
+);
+
+renderBooks(
+books.filter(
+b=>b.category==="أدب"
+),
+"literatureBooks"
+);
+
+renderBooks(
+books.filter(
+b=>b.category==="علوم"
+),
+"scienceBooks"
+);
+
+renderBooks(
+books.filter(
+b=>b.category==="تاريخ"
+),
+"historyBooks"
+);
+
+renderBooks(
+books.filter(
+b=>b.category==="تطوير الذات"
+),
+"selfBooks"
+);
+
+updateBorrowed();
+
+document.getElementById(
+"totalBooks"
+).textContent =
+books.length;
+
+});
+
+
+/* CLOSE MODAL */
+
+document
+.getElementById("borrowModal")
+.addEventListener(
+"click",
+function(event){
+
+if(event.target===this){
+
+closeModal();
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
